@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng khám Thú y Babu Pet - Xuân Lộc, Đồng Nai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-banner {
+            background-image: url('https://storage.googleapis.com/generativeai-downloads/images/uploaded:image.png-74a8dc85-b6c9-44d5-97ad-dbe840c3d128'); /* Sử dụng ảnh banner bạn cung cấp */
+            background-size: cover;
+            background-position: center;
+        }
+        .logo-img {
+            max-height: 80px; /* Điều chỉnh kích thước logo nếu cần */
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Blue-500 */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb; /* Blue-600 */
+        }
+        .btn-secondary {
+            background-color: #10b981; /* Emerald-500 */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #059669; /* Emerald-600 */
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2rem; /* Giảm kích thước chữ trên mobile */
+            }
+            .hero-text p {
+                font-size: 1rem;
+            }
+            /* .nav-links class is handled by mobile menu logic now */
+        }
+        .gemini-feature textarea {
+            resize: none;
+        }
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center">
+                        <img class="logo-img rounded-full" src="https://storage.googleapis.com/generativeai-downloads/images/uploaded:image.png-b6983ee3-208b-43d9-b1ee-1bd5e2bf3fb6" alt="Logo Babu Pet Clinic">
+                        <span class="ml-3 text-2xl font-bold text-blue-600">Babu Pet</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6 nav-links">
+                    <a href="#home" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Trang Chủ</a>
+                    <a href="#services" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Dịch Vụ</a>
+                    <a href="#ai-assistant" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">AI Tư Vấn ✨</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Giới Thiệu</a>
+                    <a href="#contact" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Liên Hệ</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+         <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
+            <a href="#home" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Trang Chủ</a>
+            <a href="#services" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Dịch Vụ</a>
+            <a href="#ai-assistant" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">AI Tư Vấn ✨</a>
+            <a href="#about" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Giới Thiệu</a>
+            <a href="#contact" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-100 px-4 py-3 text-sm font-medium">Liên Hệ</a>
+        </div>
+    </header>
+
+    <section id="home" class="hero-banner text-white relative">
+        <div class="absolute inset-0 bg-black opacity-40"></div> <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40 text-center relative z-10 hero-text">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">Phòng khám Thú y Babu Pet</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8">Nơi yêu thương và chăm sóc sức khỏe toàn diện cho thú cưng của bạn.</p>
+            <a href="#contact" class="btn-primary font-semibold py-3 px-8 rounded-lg text-lg hover:shadow-xl">Đặt Lịch Hẹn</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Dịch Vụ Của Chúng Tôi</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600 mb-4 mx-auto">
+                        <i class="fas fa-stethoscope fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-center">Khám & Chữa Bệnh</h3>
+                    <p class="text-gray-600 text-center">Chẩn đoán và điều trị các bệnh lý phổ biến và chuyên sâu cho chó, mèo.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mb-4 mx-auto">
+                        <i class="fas fa-syringe fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-center">Tiêm Phòng & Tẩy Giun</h3>
+                    <p class="text-gray-600 text-center">Bảo vệ thú cưng khỏi các bệnh truyền nhiễm nguy hiểm, tẩy giun định kỳ.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 text-indigo-600 mb-4 mx-auto">
+                        <i class="fas fa-cut fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-center">Phẫu Thuật</h3>
+                    <p class="text-gray-600 text-center">Thực hiện các ca phẫu thuật ngoại khoa, triệt sản an toàn và hiệu quả.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-pink-100 text-pink-600 mb-4 mx-auto">
+                        <i class="fas fa-ultrasound fa-2x"></i> </div>
+                    <h3 class="text-xl font-semibold mb-2 text-center">Siêu Âm</h3>
+                    <p class="text-gray-600 text-center">Dịch vụ siêu âm chẩn đoán hình ảnh, giúp phát hiện sớm các vấn đề sức khỏe.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 text-yellow-600 mb-4 mx-auto">
+                        <i class="fas fa-vial fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-center">Xét Nghiệm Máu Tổng Quát</h3>
+                    <p class="text-gray-600 text-center">Kiểm tra sức khỏe tổng thể qua các chỉ số máu, tầm soát bệnh tật.</p>
+                </div>
+                <div class="service-card bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-600 mb-4 mx-auto">
+                        <i class="fas fa-bone fa-2x"></i> </div>
+                    <h3 class="text-xl font-semibold mb-2 text-center">Thức Ăn & Phụ Kiện</h3>
+                    <p class="text-gray-600 text-center">Cung cấp các loại thức ăn chất lượng và phụ kiện đa dạng cho thú cưng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-assistant" class="py-16 bg-sky-50 gemini-feature">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Trợ lý Sức khỏe Thú cưng AI ✨</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                Đặt câu hỏi về triệu chứng hoặc vấn đề sức khỏe chung của thú cưng để nhận tư vấn sơ bộ.
+                <strong class="text-red-600">Lưu ý quan trọng:</strong> Tính năng này chỉ cung cấp thông tin tham khảo, không thay thế cho chẩn đoán và điều trị từ bác sĩ thú y chuyên nghiệp. Luôn đưa thú cưng của bạn đến phòng khám để được kiểm tra kỹ lưỡng.
+            </p>
+            <div class="max-w-xl mx-auto bg-white p-6 sm:p-8 rounded-lg shadow-xl">
+                <div class="mb-4">
+                    <label for="pet-question" class="block text-sm font-medium text-gray-700 mb-1">Câu hỏi của bạn:</label>
+                    <textarea id="pet-question" rows="4" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Ví dụ: Chó của tôi bỏ ăn và có vẻ mệt mỏi, tôi nên làm gì?"></textarea>
+                </div>
+                <button id="ask-ai-button" class="w-full btn-primary font-semibold py-2.5 px-4 rounded-md hover:shadow-md flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Gửi Câu Hỏi Cho AI
+                </button>
+                <div id="ai-loading" class="hidden my-4 text-center">
+                    <div class="loader"></div>
+                    <p class="text-sm text-gray-500">AI đang suy nghĩ, vui lòng chờ...</p>
+                </div>
+                <div id="ai-response-container" class="mt-6 hidden">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2">Phản hồi từ AI:</h4>
+                    <div id="ai-response" class="p-4 bg-gray-100 rounded-md text-gray-700 whitespace-pre-wrap"></div>
+                </div>
+                 <div id="ai-error" class="mt-4 hidden p-3 bg-red-100 text-red-700 rounded-md">
+                    <p>Đã có lỗi xảy ra khi kết nối với AI. Vui lòng thử lại sau.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Về Babu Pet</h2>
+                <p class="mt-4 text-lg text-gray-600">"Sứ mệnh của chúng tôi là đặt sức khỏe của thú cưng lên hàng đầu. Babu Pet cam kết mang đến dịch vụ chăm sóc thú y chất lượng cao với chi phí hợp lý nhất, đảm bảo hiệu quả điều trị tối ưu. Chúng tôi mong muốn được đồng hành cùng bạn và thú cưng thân yêu của bạn trên mọi chặng đường."</p>
+            </div>
+            <div class="flex justify-center">
+                 <img src="https://placehold.co/600x400/a0aec0/ffffff?text=Ảnh+Phòng+Khám+Babu+Pet" alt="Hình ảnh phòng khám Babu Pet" class="rounded-lg shadow-xl max-w-full h-auto md:max-w-2xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Không+tải+được+ảnh';">
+                 </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Liên Hệ Với Chúng Tôi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div class="space-y-6 bg-gray-50 p-8 rounded-lg shadow-lg">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Địa Chỉ</h3>
+                        <p class="text-gray-700">Ấp 5, Xã Xuân Tâm, Huyện Xuân Lộc, Tỉnh Đồng Nai</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2"><i class="fas fa-phone-alt mr-2"></i>Điện Thoại / Zalo</h3>
+                        <a href="tel:0348791894" class="text-gray-700 hover:text-blue-700 transition duration-300">0348 791 894</a>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2"><i class="fas fa-envelope mr-2"></i>Email</h3>
+                        <a href="mailto:trongem.org@gmail.com" class="text-gray-700 hover:text-blue-700 transition duration-300">trongem.org@gmail.com</a>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2"><i class="fas fa-clock mr-2"></i>Giờ Mở Cửa</h3>
+                        <p class="text-gray-700">Thứ 2 - Chủ Nhật: 9:00 - 19:00</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2"><i class="fab fa-facebook-square mr-2"></i>Facebook</h3>
+                        <a href="https://www.facebook.com/profile.php?id=100083345852821" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-700 transition duration-300">Phòng khám thú y Babu Pet</a>
+                        <p class="text-sm text-gray-500 mt-1">(Lưu ý: Link Facebook trên là ví dụ, vui lòng cung cấp link Fanpage chính xác nếu khác)</p>
+                    </div>
+                     <a href="https://zalo.me/0348791894" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block btn-secondary font-semibold py-3 px-6 rounded-lg text-center w-full sm:w-auto">
+                        <i class="fab fa-rocketchat mr-2"></i> Nhắn Zalo Ngay
+                    </a>
+                </div>
+
+                <div class="rounded-lg shadow-lg overflow-hidden h-96 md:h-full">
+                    <iframe
+                        src="https://maps.google.com/maps?q=%E1%BA%A4p%205%2C%20Xu%C3%A2n%20T%C3%A2m%2C%20Xu%C3%A2n%20L%E1%BB%99c%2C%20%C4%90%E1%BB%93ng%20Nai&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Bản đồ vị trí Phòng khám Thú y Babu Pet">
+                    </iframe>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-4">
+                <a href="https://www.facebook.com/profile.php?id=100083345852821" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white mx-2 text-xl"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://zalo.me/0348791894" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white mx-2 text-xl"><i class="fas fa-phone-square"></i> <span class="text-sm">(Zalo)</span></a>
+                <a href="mailto:trongem.org@gmail.com" class="text-gray-400 hover:text-white mx-2 text-xl"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="text-sm">© <span id="currentYear"></span> Phòng khám Thú y Babu Pet. Bảo lưu mọi quyền.</p>
+            <p class="text-xs mt-1">Thiết kế bởi Gemini AI</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu after click if open
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Gemini AI Feature
+        const askAiButton = document.getElementById('ask-ai-button');
+        const petQuestionInput = document.getElementById('pet-question');
+        const aiResponseContainer = document.getElementById('ai-response-container');
+        const aiResponseDiv = document.getElementById('ai-response');
+        const aiLoadingDiv = document.getElementById('ai-loading');
+        const aiErrorDiv = document.getElementById('ai-error');
+
+        if (askAiButton) {
+            askAiButton.addEventListener('click', async () => {
+                const userInput = petQuestionInput.value.trim();
+                if (!userInput) {
+                    aiErrorDiv.textContent = 'Vui lòng nhập câu hỏi của bạn.';
+                    aiErrorDiv.classList.remove('hidden');
+                    aiResponseContainer.classList.add('hidden');
+                    return;
+                }
+
+                aiLoadingDiv.classList.remove('hidden');
+                aiResponseContainer.classList.add('hidden');
+                aiErrorDiv.classList.add('hidden');
+                askAiButton.disabled = true;
+                askAiButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+
+                const prompt = `Bạn là một trợ lý AI cung cấp thông tin chung về sức khỏe thú cưng cho một phòng khám thú y tại Việt Nam. Người dùng sẽ mô tả triệu chứng hoặc đặt câu hỏi bằng tiếng Việt. Hãy cung cấp một câu trả lời hữu ích, tổng quát bằng tiếng Việt.
+QUAN TRỌNG: Luôn luôn nhấn mạnh ở cuối mỗi câu trả lời rằng thông tin này CHỈ MANG TÍNH THAM KHẢO, KHÔNG THAY THẾ cho việc chẩn đoán hoặc điều trị chuyên nghiệp từ bác sĩ thú y. Khuyến khích người dùng đưa thú cưng đến phòng khám thú y Babu Pet (hoặc bất kỳ phòng khám thú y nào) để được kiểm tra kỹ lưỡng nếu có bất kỳ lo ngại nào về sức khỏe của thú cưng.
+Không đưa ra chẩn đoán cụ thể hoặc kế hoạch điều trị.
+Câu hỏi của người dùng: "${userInput}"`;
+
+                try {
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // API key sẽ được cung cấp trong môi trường Canvas
+                    const apiUrl = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=\${apiKey}\`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(\`API error: \${response.status}\`);
+                    }
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        aiResponseDiv.textContent = text;
+                        aiResponseContainer.classList.remove('hidden');
+                    } else {
+                         throw new Error('Không nhận được phản hồi hợp lệ từ AI.');
+                    }
+
+                } catch (error) {
+                    console.error('Lỗi khi gọi Gemini API:', error);
+                    aiErrorDiv.textContent = 'Đã có lỗi xảy ra khi kết nối với AI. Vui lòng thử lại sau. Chi tiết: ' + error.message;
+                    aiErrorDiv.classList.remove('hidden');
+                } finally {
+                    aiLoadingDiv.classList.add('hidden');
+                    askAiButton.disabled = false;
+                    askAiButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
+
